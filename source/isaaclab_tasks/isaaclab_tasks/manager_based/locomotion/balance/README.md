@@ -45,6 +45,8 @@ To shape Daisy’s behavior, we designed several reward and penalty terms:
 I've trained and retrained about thrice now. The last iteration caused her to learn how to get on her knees and raise her right foot in the air because 
 the reward for lifting it was much higher than any penalty for keeping her support feet on the ground.
 
+![Daisy not balancing](daisy not balancing.png)
+
 I monitor training through:
 - `Mean total reward` over iterations
 - `Mean episode length` to see how long Daisy remains stable
