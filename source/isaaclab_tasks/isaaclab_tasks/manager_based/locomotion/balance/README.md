@@ -47,6 +47,10 @@ the reward for lifting it was much higher than any penalty for keeping her suppo
 
 ![Daisy not balancing](daisy_not_balancing.png)
 
+And Take 3 is a little better :)
+
+![Daisy_not_ba;ancing_but_at_least_on_three_feet](Daisy_not_balancing_take_2.png)
+
 I monitor training through:
 - `Mean total reward` over iterations
 - `Mean episode length` to see how long Daisy remains stable
