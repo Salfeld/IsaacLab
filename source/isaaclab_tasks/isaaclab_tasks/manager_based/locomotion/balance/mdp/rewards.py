@@ -109,16 +109,39 @@ def air_time_reward(
     reward = torch.clip(current_air_time, -mode_time, mode_time)
     return torch.sum(reward, dim=1)
 
+# def fr_contact_penalty(
+#     env: ManagerBasedRLEnv,
+#     sensor_cfg: SceneEntityCfg,
+#     threshold: float,
+# ) -> torch.Tensor:
+#     forces = env.scene.sensors[sensor_cfg.name].data.net_forces_w
+#     print("FR contact force:", forces[:, sensor_cfg.body_ids])
+#     is_contact = (forces[:, sensor_cfg.body_ids] > threshold).any(dim=-1).float()
+#     return is_contact.view(-1)  # or .squeeze(-1)
+
+    # return is_contact  # 1.0 if still touching ? -2.0 reward
+
 def fr_contact_penalty(
     env: ManagerBasedRLEnv,
     sensor_cfg: SceneEntityCfg,
     threshold: float,
 ) -> torch.Tensor:
     forces = env.scene.sensors[sensor_cfg.name].data.net_forces_w
-    is_contact = (forces[:, sensor_cfg.body_ids] > threshold).any(dim=-1).float()
-    return is_contact.view(-1)  # or .squeeze(-1)
+    force_vecs = forces[:, sensor_cfg.body_ids]  # shape: [num_envs, 1, 3]
+    force_mags = torch.norm(force_vecs, dim=-1).squeeze(-1)  # shape: [num_envs]
+    is_contact = (force_mags > threshold).float()  # e.g., threshold=5.0
+    return is_contact
 
-    # return is_contact  # 1.0 if still touching ? -2.0 reward
+def fr_foot_lift_reward(
+    env: ManagerBasedRLEnv,
+    sensor_cfg: SceneEntityCfg,
+    threshold: float,
+) -> torch.Tensor:
+    forces = env.scene.sensors[sensor_cfg.name].data.net_forces_w
+    force_vecs = forces[:, sensor_cfg.body_ids]
+    force_mags = torch.norm(force_vecs, dim=-1).squeeze(-1)
+    is_lifted = (force_mags <= threshold).float()  # reward when lifted
+    return 2.0 * is_lifted
 
 # Too low < 1
 def fr_foot_airtime_reward(
@@ -128,7 +151,9 @@ def fr_foot_airtime_reward(
 ) -> torch.Tensor:
     # Reward raising fr foot
     contact_sensor = env.scene.sensors[sensor_cfg.name]
+    # print("Contact sensor: ", contact_sensor)
     air_time = contact_sensor.data.current_air_time[:, sensor_cfg.body_ids]
+    # print("Air_time: ", air_time)
     # Reward increases the longer it's lifted, saturating with exponential
     # reward = 1.0 - torch.exp(-air_time / mode_time)
     reward = torch.pow(air_time, 2.0)
@@ -285,11 +310,11 @@ def joint_velocity_penalty(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) ->
 
 def root_height_penalty(
     env: ManagerBasedRLEnv,
-    asset_cfg: SceneEntityCfg 
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
 ) -> torch.Tensor:
     """Essentially for robot fall. Large negative reward when the robot's root height falls below a threshold."""
     asset: Articulation = env.scene[asset_cfg.name]
-    minimum_height = 0.1
+    minimum_height = 0.2
 
     root_height = asset.data.root_pos_w[:, 2]
 
@@ -299,4 +324,25 @@ def root_height_penalty(
         torch.tensor(1.0, device=root_height.device),
         torch.tensor(0.0, device=root_height.device)
     )
+    # print("Root_height_penalty: ", penalty)
+    return penalty
+
+def illegal_contact(env: ManagerBasedRLEnv, threshold: float, sensor_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Terminate when the contact force on the sensor exceeds the force threshold."""
+    # extract the used quantities (to enable type-hinting)
+    # print("In terminations, illegal contact sensors: ", sensor_cfg.name)
+    # print("body ids: ", sensor_cfg.body_ids)
+    contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
+    net_contact_forces = contact_sensor.data.net_forces_w_history
+    # check if any contact force exceeds the threshold
+    penalty = torch.where(
+    torch.any(
+        torch.max(torch.norm(net_contact_forces[:, :, sensor_cfg.body_ids], dim=-1), dim=1)[0] > threshold,
+        dim=1
+    ),
+    torch.tensor(1.0, device=net_contact_forces.device),
+    torch.tensor(0.0, device=net_contact_forces.device)
+    )
+
+    # print("illegal contact", penalty)
     return penalty
