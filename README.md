@@ -64,6 +64,10 @@ The Isaac Lab framework is released under [BSD-3 License](LICENSE). The `isaacla
 
 Isaac Lab development initiated from the [Orbit](https://isaac-orbit.github.io/) framework. We would appreciate if you would cite it in academic publications as well:
 
+## Balance Project README
+
+My project is teaching Daisy to balance on three legs. Find the README in the source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/balance directory.
+
 ```
 @article{mittal2023orbit,
    author={Mittal, Mayank and Yu, Calvin and Yu, Qinxi and Liu, Jingzhou and Rudin, Nikita and Hoeller, David and Yuan, Jia Lin and Singh, Ritvik and Guo, Yunrong and Mazhar, Hammad and Mandlekar, Ajay and Babich, Buck and State, Gavriel and Hutter, Marco and Garg, Animesh},
