@@ -94,6 +94,7 @@ class MySceneCfg(InteractiveSceneCfg):
         update_period=0.0,
         history_length=3,
         debug_vis=True,
+        track_air_time = True,
     )
     contact_forces_fl = ContactSensorCfg(
         prim_path="{ENV_REGEX_NS}/Robot/fl_foot",
@@ -267,13 +268,13 @@ class RewardsCfg:
         weight=-1e-3
     )
     
-    # robot_fall_penalty = RewTerm(
-    #     func=mdp.root_height_penalty,
-    #     weight=-10.0,  # High weight to strongly discourage lifting support feet
-    #     params={
-    #         "asset_cfg": SceneEntityCfg("robot", joint_names=".*"),
-    #     },
-    # )
+    robot_fall_penalty = RewTerm(
+        func=mdp.illegal_contact,
+        weight=-10.0,  # High weight to strongly discourage falling
+        params={
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names="body"), "threshold": 0.9
+        },
+    )
 
     # -- penalties
     action_smoothness = RewTerm(func=mdp.action_smoothness_penalty, weight=-0.1)
@@ -331,22 +332,29 @@ class RewardsCfg:
 
     # is too low right now < 1
     fr_lift_reward = RewTerm(
-    func=mdp.fr_foot_airtime_reward,
+    # func=mdp.fr_foot_airtime_reward,
+    func = mdp.fr_foot_lift_reward,
     weight=3.0,
-    params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="fr_foot"), "mode_time": 0.4}
+    params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="fr_foot"), "threshold": 5.0}
     )
 
     # is also low -1, maybe she knows to get down fast?
     fr_contact_penalty = RewTerm(
     func=mdp.fr_contact_penalty,
     weight=-2.0,
-    params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="fr_foot"), "threshold": 1.0}
+    params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="fr_foot"), "threshold": 5.0}
+    )
+
+    fr_knee_contact_penalty = RewTerm(
+    func=mdp.fr_contact_penalty,
+    weight=-2.0,
+    params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="fr_lleg"), "threshold": 5.0}
     )
 
     # wayyyyy too high >1000
     fr_lift_height_reward = RewTerm(
     func=mdp.fr_foot_height_reward,
-    weight=3.0,
+    weight=5.0,
     params={"asset_cfg": SceneEntityCfg("robot", body_names="fr_foot"), "target_height": 0.15}
     )
 
