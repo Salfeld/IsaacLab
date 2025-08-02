@@ -68,6 +68,13 @@ Isaac Lab development initiated from the [Orbit](https://isaac-orbit.github.io/)
 
 My project is teaching Daisy to balance on three legs. Find the README in the source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/balance directory.
 
+Follow this google doc to create your own project.
+[Isaac Lab Notes to Start A Project](https://docs.google.com/document/d/1U6aydY-jMR7V-lUeUMpmAq_mh3OmgiJ9TAhAeAJGzgo/edit?usp=sharing)
+
+Follow this google doc for sim-to-real instructions.
+[Sim-to-real](https://docs.google.com/document/d/1fYPB0BG2A7SnUReCyFMTrTcS7LN8-KqpF2NAmlgo_Rw/edit?usp=sharing)
+
+
 ```
 @article{mittal2023orbit,
    author={Mittal, Mayank and Yu, Calvin and Yu, Qinxi and Liu, Jingzhou and Rudin, Nikita and Hoeller, David and Yuan, Jia Lin and Singh, Ritvik and Guo, Yunrong and Mazhar, Hammad and Mandlekar, Ajay and Babich, Buck and State, Gavriel and Hutter, Marco and Garg, Animesh},
