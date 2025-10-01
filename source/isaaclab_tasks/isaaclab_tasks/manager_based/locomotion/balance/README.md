@@ -42,14 +42,19 @@ To shape Daisy’s behavior, we designed several reward and penalty terms:
 
 ## Progress
 
-I've trained and retrained about thrice now. The last iteration caused her to learn how to get on her knees and raise her right foot in the air because 
+I've trained and retrained about 5 times till I got the desired behavior. The last iteration caused her to learn how to get on her knees and raise her right foot in the air because 
 the reward for lifting it was much higher than any penalty for keeping her support feet on the ground.
 
+Take #2
 ![Daisy not balancing](daisy_not_balancing.png)
 
-And Take 3 is a little better :)
+And Take #3 is a little better :)
 
 ![Daisy_not_ba;ancing_but_at_least_on_three_feet](Daisy_not_balancing_take_2.png)
+
+Take #4 shows her standing on three feet but only for about 1 second before she falls over.
+
+And finally Take #5 shows her balanced and raising her front right foot!
 
 I monitor training through:
 - `Mean total reward` over iterations
