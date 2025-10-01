@@ -53,8 +53,10 @@ And Take #3 is a little better :)
 ![Daisy_not_ba;ancing_but_at_least_on_three_feet](Daisy_not_balancing_take_2.png)
 
 Take #4 shows her standing on three feet but only for about 1 second before she falls over.
+![Daisy raising her leg and falling over](take_4.png)
 
 And finally Take #5 shows her balanced and raising her front right foot!
+![She did it!!](She_did_it.png)
 
 I monitor training through:
 - `Mean total reward` over iterations
