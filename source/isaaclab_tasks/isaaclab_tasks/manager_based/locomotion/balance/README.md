@@ -58,12 +58,12 @@ Take #4 shows her standing on three feet but only for about 1 second before she 
 And finally Take #5 shows her balanced and raising her front right foot!
 ![She did it!!](She_did_it.png)
 
-I monitor training through:
-- `Mean total reward` over iterations
-- `Mean episode length` to see how long Daisy remains stable
-- Episode termination causes (e.g., body contact, foot slip)
+I monitor training through a bunch of rewards and penalty functions. An example of the output I see during training is:
+![Training_info](Training_metrics.png)
 
-So far, Daisy is learning to lift her foot while remaining upright for increasingly long episodes — an essential first step toward the broader balancing goal.
+I use these metrics to infer whether the robot is learning how I want it to learn. I can also see what weights influence its final score the most and I can tweak them if they don't influence it the way I want them to.
+
+This is how I trained her to stand on three legs!
 
 ---
 
