@@ -49,6 +49,7 @@ Take #2
 <img src="daisy_not_balancing.png" alt="Daisy not balancing" width="50%">
 
 And Take #3 is a little better :)
+
 <img src="Daisy_not_balancing_take_2.png" alt="Daisy_not_balancing_but_at_least_on_three_feet" width="50%">
 
 Take #4 shows her standing on three feet but only for about 1 second before she falls over.
