@@ -45,8 +45,8 @@ To shape Daisy’s behavior, we designed several reward and penalty terms:
 I've trained and retrained about 5 times till I got the desired behavior. The last iteration caused her to learn how to get on her knees and raise her right foot in the air because 
 the reward for lifting it was much higher than any penalty for keeping her support feet on the ground.
 
-Take #2
-![Daisy not balancing](daisy_not_balancing.png)
+Take #2  
+<img src="daisy_not_balancing.png" alt="Daisy not balancing" width="50%">
 
 And Take #3 is a little better :)
 
