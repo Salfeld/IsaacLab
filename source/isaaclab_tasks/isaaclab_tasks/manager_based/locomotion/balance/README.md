@@ -49,17 +49,16 @@ Take #2
 <img src="daisy_not_balancing.png" alt="Daisy not balancing" width="50%">
 
 And Take #3 is a little better :)
-
-![Daisy_not_ba;ancing_but_at_least_on_three_feet](Daisy_not_balancing_take_2.png)
+<img src="Daisy_not_balancing_take_2.png" alt="Daisy_not_balancing_but_at_least_on_three_feet" width="50%">
 
 Take #4 shows her standing on three feet but only for about 1 second before she falls over.
-![Daisy raising her leg and falling over](take_4.png)
+<img src="take_4.png" alt="Daisy raising her leg and falling over" width="50%">
 
 And finally Take #5 shows her balanced and raising her front right foot!
-![She did it!!](She_did_it.png)
+<img src="She_did_it.png" alt="She did it!!" width="50%">
 
 I monitor training through a bunch of rewards and penalty functions. An example of the output I see during training is:
-![Training_info](Training_metrics.png)
+<img src="Training_metrics.png" alt="Training_info" width="50%">
 
 I use these metrics to infer whether the robot is learning how I want it to learn. I can also see what weights influence its final score the most and I can tweak them if they don't influence it the way I want them to.
 
