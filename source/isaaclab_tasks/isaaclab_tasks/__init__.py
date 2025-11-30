@@ -23,6 +23,8 @@ __version__ = ISAACLAB_TASKS_METADATA["package"]["version"]
 ##
 
 from .utils import import_packages
+from isaaclab_tasks.manager_based.locomotion import balance  # ? manually import
+
 
 # The blacklist is used to prevent importing configs from sub-packages
 _BLACKLIST_PKGS = ["utils", ".mdp"]

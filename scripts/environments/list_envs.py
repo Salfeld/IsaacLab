@@ -28,6 +28,8 @@ import gymnasium as gym
 from prettytable import PrettyTable
 
 import isaaclab_tasks  # noqa: F401
+# from isaaclab_tasks.manager_based.locomotion import balance  # this is sufficient
+
 
 
 def main():

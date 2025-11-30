@@ -91,6 +91,7 @@ class RewardManager(ManagerBase):
     @property
     def active_terms(self) -> list[str]:
         """Name of active reward terms."""
+        
         return self._term_names
 
     """
@@ -153,6 +154,19 @@ class RewardManager(ManagerBase):
 
             # Update current reward for this step.
             self._step_reward[:, self._term_names.index(name)] = value / dt
+
+        # for name, term_cfg in zip(self._term_names, self._term_cfgs):
+        #     if term_cfg.weight == 0.0:
+        #         continue
+        #     value = term_cfg.func(self._env, **term_cfg.params) * term_cfg.weight * dt
+            
+        #     # ? Add this line:
+        #     print(f"[{name}] returned shape: {value.shape}")
+            
+        #     self._reward_buf += value  # ? crash will happen here if shape is wrong
+        #     self._episode_sums[name] += value
+        #     self._step_reward[:, self._term_names.index(name)] = value / dt
+
 
         return self._reward_buf
 
